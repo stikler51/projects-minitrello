@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import InfiniteTable from '../components/InfiniteTable/InfiniteTable'
 import { PROJECTS } from '../mocks'
 import { ProjectsDataType } from '../mocks/types'
 
-const Table = () => {
+const Table = (): ReactElement => {
   const [hasNextPage, setHasNextPage] = useState<boolean>(true)
   const [isNextPageLoading, setIsNextPageLoading] = useState<boolean>(false)
   const [globalLoading, setGlobalLoading] = useState<boolean>(false)

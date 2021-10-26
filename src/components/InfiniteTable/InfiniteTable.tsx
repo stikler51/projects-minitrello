@@ -4,7 +4,7 @@ import InfiniteLoader from 'react-window-infinite-loader'
 import InfiniteTableHeader from './InfiniteTableHeader'
 import InfiniteTableSearchPanel from './InfiniteTableSearchPanel'
 import { InfiniteTableProps, TableRowProps } from './types'
-import { Link, useRouteMatch, useParams } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 
 const InfiniteTable = ({
   hasNextPage,
