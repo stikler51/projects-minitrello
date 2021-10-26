@@ -4,6 +4,7 @@ import InfiniteLoader from 'react-window-infinite-loader'
 import InfiniteTableHeader from './InfiniteTableHeader'
 import InfiniteTableSearchPanel from './InfiniteTableSearchPanel'
 import { InfiniteTableProps, TableRowProps } from './types'
+import { Link, useRouteMatch, useParams } from 'react-router-dom'
 
 const InfiniteTable = ({
   hasNextPage,
@@ -24,6 +25,8 @@ const InfiniteTable = ({
   }
 
   const list = useRef<any>(null)
+
+  const match = useRouteMatch()
 
   useEffect(() => {
     // Recalculating rows sizes due to async loading
@@ -48,22 +51,28 @@ const InfiniteTable = ({
       )
     } else {
       return (
-        <div className="infiniteTable__row" style={{ ...style, background: `${index % 2 ? '#fff' : '#eeeeee60'}` }}>
-          <div className="infiniteTable__cell">{items[index].id}</div>
-          <div className="infiniteTable__cell">{items[index].project_name}</div>
-          <div className="infiniteTable__cell">{items[index].customer.name}</div>
-          <div className="infiniteTable__cell">
-            {items[index].project_manager.first_name + ' ' + items[index].project_manager.last_name}
-          </div>
-          <div className="infiniteTable__cell">
-            {items[index].sales_manager.first_name + ' ' + items[index].sales_manager.last_name}
-          </div>
-          <div className="infiniteTable__cell">
-            {items[index].assigns.map((person) => (
-              <div key={person.id}>{person.first_name + ' ' + person.last_name}</div>
-            ))}
-          </div>
-        </div>
+        <>
+          <Link
+            to={`${match.url}/${items[index].id}`}
+            className="infiniteTable__row"
+            style={{ ...style, background: `${index % 2 ? '#fff' : '#eeeeee60'}` }}
+          >
+            <div className="infiniteTable__cell">{items[index].id}</div>
+            <div className="infiniteTable__cell">{items[index].project_name}</div>
+            <div className="infiniteTable__cell">{items[index].customer.name}</div>
+            <div className="infiniteTable__cell">
+              {items[index].project_manager.first_name + ' ' + items[index].project_manager.last_name}
+            </div>
+            <div className="infiniteTable__cell">
+              {items[index].sales_manager.first_name + ' ' + items[index].sales_manager.last_name}
+            </div>
+            <div className="infiniteTable__cell">
+              {items[index].assigns.map((person) => (
+                <div key={person.id}>{person.first_name + ' ' + person.last_name}</div>
+              ))}
+            </div>
+          </Link>
+        </>
       )
     }
   }

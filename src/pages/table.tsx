@@ -85,6 +85,7 @@ const Table = () => {
 
   return (
     <div>
+      <h1>Table page</h1>
       <InfiniteTable
         hasNextPage={hasNextPage}
         isNextPageLoading={isNextPageLoading}

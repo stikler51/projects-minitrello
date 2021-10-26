@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home, Table, Trello } from './pages'
+import { Home, Table, Trello, Project } from './pages'
 
 function App(): ReactElement {
   return (
@@ -13,6 +13,9 @@ function App(): ReactElement {
           </Route>
           <Route path="/table" exact>
             <Table />
+          </Route>
+          <Route path="/table/:id">
+            <Project />
           </Route>
           <Route path="/" exact>
             <Home />

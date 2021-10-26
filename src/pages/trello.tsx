@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
-const Trello = () => {
+const Trello = (): ReactElement => {
   return <div>Trello Page</div>
 }
 

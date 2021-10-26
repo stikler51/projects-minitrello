@@ -12,6 +12,7 @@
 }
 .infiniteTable {
   box-shadow: 0px 2px 15px 0px #eee;
+  overflow: hidden;
 }
 
 .infiniteTable *::-webkit-scrollbar {
@@ -34,6 +35,12 @@
   column-gap: 15px;
   align-content: center;
   padding: 0;
+  color: black;
+  text-decoration: none;
+}
+
+.infiniteTable__row:hover .infiniteTable__cell {
+  padding-left: 15px;
 }
 
 .infiniteTable__row_header {
@@ -45,12 +52,17 @@
   overflow-x: hidden;
 }
 
+.infiniteTable__row_header:hover .infiniteTable__cell {
+  padding-left: 10px;
+}
+
 .infiniteTable__cell {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   padding: 0 10px;
+  transition: 0.3s;
 }
 
 .infiniteTable_loadingCell {
