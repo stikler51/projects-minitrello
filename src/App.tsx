@@ -5,8 +5,8 @@ import { Home, Table, Trello, Project } from './pages'
 
 function App(): ReactElement {
   return (
-    <div className="App container">
-      <Router>
+    <Router>
+      <div className="App container">
         <Switch>
           <Route path="/trello" exact>
             <Trello />
@@ -21,8 +21,8 @@ function App(): ReactElement {
             <Home />
           </Route>
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   )
 }
 
