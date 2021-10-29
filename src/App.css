@@ -27,19 +27,21 @@
   box-shadow: 0px 2px 15px 0px #eee;
   overflow: hidden;
 }
-
+.modalWindow__body::-webkit-scrollbar,
 .trelloBoard_body::-webkit-scrollbar,
 .infiniteTable *::-webkit-scrollbar {
   width: 5px;
   height: 8px;
 }
 
+.modalWindow__body::-webkit-scrollbar-thumb,
 .trelloBoard_body::-webkit-scrollbar-thumb,
 .infiniteTable *::-webkit-scrollbar-thumb {
   background-color: #aaa;
   border-radius: 2px;
 }
 
+.modalWindow__body::-webkit-scrollbar-track,
 .trelloBoard_body::-webkit-scrollbar-track,
 .infiniteTable *::-webkit-scrollbar-track {
   background-color: #eee;
@@ -251,7 +253,7 @@ textarea.formInput {
 
 .modalWindow {
   min-width: 320px;
-  max-width: 600px;
+  max-width: 60vw;
   background: white;
   /* padding: 20px 40px; */
   border-radius: 8px;
@@ -293,6 +295,8 @@ textarea.formInput {
   max-height: 400px;
   overflow-y: auto;
   height: 100%;
+  max-height: 80vh;
+  min-height: 60vh;
 }
 
 .taskForm {
@@ -331,4 +335,98 @@ textarea.formInput {
 .deleteTaskBtnBtn:hover {
   background: #ff000020;
   cursor: pointer;
+}
+
+.viewTask {
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr;
+}
+
+.viewTask h3 {
+  margin-top: 0;
+}
+
+.viewTask__mainInfo,
+.viewTask__assigns {
+  padding: 0 10px;
+}
+
+.viewTask__assigns {
+  border-left: 1px solid #eee;
+}
+
+.viewTask__assigns p {
+  margin: 0;
+}
+
+.assignsAutocomplete {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.assignsAutocomplete > *:first-child {
+  flex-grow: 1;
+}
+
+.assignsAutocomplete__button {
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: 0.3s;
+  width: 38px;
+  height: 38px;
+}
+
+.assignsAutocomplete__button:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+.comment {
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+  overflow-y: auto;
+}
+
+.comment_author {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.comment_text {
+  font-size: 12px;
+}
+
+.commentForm {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.commentForm .formInput {
+  /* width: 50%; */
+  flex-grow: 1;
+}
+
+.commentForm .formSubmitBtn,
+.commentForm .formInput_fullwidth {
+  width: 100%;
+}
+
+.editButtons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.editButtons button {
+  flex-grow: 1;
 }

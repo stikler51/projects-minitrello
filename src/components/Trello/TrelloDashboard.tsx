@@ -1,4 +1,5 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState, useEffect, useCallback } from 'react'
+import { useHistory, useParams } from 'react-router'
 import Board from './Board'
 import {
   TrelloDashboardProps,
@@ -11,12 +12,14 @@ import { TASKS } from '../../mocks'
 import { TasksDataType } from '../../mocks/types'
 import Modal from '../Modal/Modal'
 import NewTaskForm from './NewTaskForm'
-import EditTaskForm from './EditTaskForm'
+import ViewTask from './ViewTask/ViewTask'
 
 const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
   const [boards, setBoards] = useState<TasksDataType>([])
   const [showModal, setShowModal] = useState(false)
   const [modalContent, setModalContent] = useState({ title: 'Modal', content: <></> })
+  const history = useHistory()
+  const { taskId } = useParams<{ taskId: string }>()
 
   // First loading
   useEffect(() => {
@@ -30,8 +33,18 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
 
     setTimeout(() => {
       setBoards([...TASKS])
+      if (taskId) {
+        showModalWithContent({ boardId: '', taskId: taskId, actionType: 'view' })
+      }
     }, 1500)
   }, [])
+
+  const closeModal = useCallback(() => {
+    setShowModal(false)
+    if (taskId) {
+      history.push('/trello')
+    }
+  }, [taskId])
 
   const addNewTask = ({ boardId, taskObject }: addNewTaskParams) => {
     // Case for real API
@@ -72,6 +85,8 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
           if (task.id === taskId) {
             task.title = taskObject.title
             task.description = taskObject.description
+            task.assigns = [...taskObject.assigns]
+            task.comments = [...taskObject.comments]
             return task
           }
           return task
@@ -83,7 +98,7 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
     })
 
     setBoards([...updatedTasks])
-    setShowModal(false)
+    // setShowModal(false)
   }
 
   const removeTask = ({ boardId, taskId }: removeTaskParams) => {
@@ -108,6 +123,7 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
 
     setBoards([...updatedTasks])
     setShowModal(false)
+    history.push(`/trello`)
   }
 
   const showModalWithContent = ({ boardId, actionType, taskId }: showModalWithContentArgs): void => {
@@ -115,16 +131,17 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
       case 'add':
         setModalContent({ title: 'Add New Task', content: <NewTaskForm boardId={boardId} submitForm={addNewTask} /> })
         break
-      case 'edit':
+      case 'view':
         if (taskId) {
           setModalContent({
-            title: 'Edit Task',
-            content: <EditTaskForm boardId={boardId} submitForm={updateTask} taskId={taskId} remove={removeTask} />,
+            title: 'View Task',
+            content: <ViewTask taskId={taskId} boardId={boardId} updateTask={updateTask} remove={removeTask} />,
           })
+
+          history.push(`/trello/${taskId}`)
         }
         break
       default:
-        setModalContent({ title: 'Modal', content: <></> })
         break
     }
     setShowModal(true)
@@ -138,7 +155,7 @@ const TrelloDashboard = ({ id }: TrelloDashboardProps): ReactElement => {
           <Board key={board.id} id={board.id} label={board.label} items={board.items} action={showModalWithContent} />
         ))}
       </div>
-      <Modal open={showModal} close={() => setShowModal(false)} content={modalContent} />
+      <Modal open={showModal} close={closeModal} content={modalContent} />
     </>
   )
 }

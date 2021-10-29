@@ -32,6 +32,9 @@ function App(): ReactElement {
           <Route path="/trello" exact>
             <Trello />
           </Route>
+          <Route path="/trello/:taskId">
+            <Trello />
+          </Route>
           <Route path="/table" exact>
             <Table />
           </Route>

@@ -6,7 +6,12 @@ const NewTaskForm = ({ boardId, submitForm }: NewTaskFormProps): ReactElement =>
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data: SingleTaskDataType) => {
-    submitForm({ boardId, taskObject: data })
+    const newTask = {
+      ...data,
+      comments: [],
+      assigns: [],
+    }
+    submitForm({ boardId, taskObject: newTask })
   }
 
   return (
